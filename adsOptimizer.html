@@ -8,7 +8,7 @@
 <body style="height: 2000px;">
     <script>
         /*Adparnter ads*/
-        createAds('adpartner', 'bannerAdpartner', {
+        createAds('adpartner' /*type*/, 'bannerAdpartner' /*divid*/, {
             makeAds: function() {
                 var head = document.getElementsByTagName('head')[0];
                 var script = document.createElement('script');
@@ -43,9 +43,52 @@
         });
         /*mgid ads*/
 
+        /*google ads ins*/
+        createAds('googleAdsIns', 'googleAdsIns', {
+            makeAds: function() {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            },
+            createElems: [{
+                type: 'ins',
+                into: 'googleAdsIns',
+                parametres: {
+                    'class':'adsbygoogle',
+                    'style':'display:block',
+                    'data-ad-client':'ca-pub-7062211877745429',
+                    'data-ad-slot':'5042206135',
+                    'data-ad-format':'auto',
+                    'data-full-width-responsive':'true'
+                }
+            }]
+        });
+        /*google ads ins*/
+
+        /*googleTag ads*/
+        createAds('googleAdsTag', 'googleAdsDiv', {
+            screenSizes: {
+              'min': 0,
+              'max': 2000
+            },
+            googleAdsTag: {
+                adUnitPath:'/124075610/2019_vesti_premium_first_tablet',
+                size: [300, 250],
+                opt_div: 'divgptad15517024837680'
+            },
+            createElems: [{
+                type: 'div',
+                into: 'googleAdsDiv',
+                parametres: {
+                    'id':'divgptad15517024837680'
+                }
+            }]
+        });
+        /*googleTag ads*/
+
     </script>
 
-<div id="bannerAdpartner"></div>
-<div id="mgidBanner"></div>
+    <div id="bannerAdpartner"></div>
+    <div id="mgidBanner"></div>
+    <div id="googleAdsIns"></div>
+    <div id="googleAdsDiv"></div>
 </body>
 </html>

@@ -4,10 +4,28 @@ function addListener(options, divId) {
             if(options.createElems) {
                 options.createElems.map(createElem);
             }
-            options.makeAds();
+            if(options.makeAds){
+                options.makeAds();
+            }
+            if(options.googleAdsTag) {
+                googleAdsTagConstruct(options.googleAdsTag);
+            }
             window.removeEventListener('scroll', divId);
         }
     });
+}
+
+function googleAdsTagConstruct(options) {
+    if(window.googletag !== undefined) {
+        /*let slot = */googletag.defineSlot(options.adUnitPath, options.size, options.opt_div).addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().collapseEmptyDivs();
+        googletag.enableServices();
+        googletag.cmd.push(function () {
+            googletag.display(options.opt_div);
+            /*googletag.pubads().refresh([slot]);*/
+        });
+    }
 }
 
 function consoleLog(type, problem) {
@@ -34,19 +52,21 @@ function createAds(type, divId, options) {
     switch (type) {
         case 'mgid':
         case 'adpartner':
-            if(options.makeAds) {
-                if(divId) {
-                    addListener(options, divId);
+        case 'googleAdsIns':
+        case 'googleAdsTag':
+            if(!options.screenSizes || (document.documentElement.clientWidth >= options.screenSizes.min && document.documentElement.clientWidth <= options.screenSizes.max)) {
+                if (options.makeAds || (type='googleAdsTag')) {
+                    if (divId) {
+                        addListener(options, divId);
+                    }
+                    else {
+                        consoleLog(type, 'divId');
+                    }
                 }
                 else {
-                    consoleLog(type, 'divId');
+                    consoleLog(type, 'makeAds');
                 }
             }
-            else {
-                consoleLog(type, 'makeAds');
-            }
-            break;
-        case 'value 2':
             break;
         default:
             console.log('type is empty or wrong');
