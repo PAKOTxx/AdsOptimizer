@@ -17,13 +17,13 @@ function addListener(options, divId) {
 
 function googleAdsTagConstruct(options) {
     if(window.googletag !== undefined) {
-        /*let slot = */googletag.defineSlot(options.adUnitPath, options.size, options.opt_div).addService(googletag.pubads());
+        let slot = googletag.defineSlot(options.adUnitPath, options.size, options.opt_div).addService(googletag.pubads());
         googletag.pubads().enableSingleRequest();
         googletag.pubads().collapseEmptyDivs();
         googletag.enableServices();
         googletag.cmd.push(function () {
             googletag.display(options.opt_div);
-            /*googletag.pubads().refresh([slot]);*/
+            googletag.pubads().refresh([slot]);
         });
     }
 }
@@ -51,9 +51,11 @@ function createElem(elem) {
 function createAds(type, divId, options) {
     switch (type) {
         case 'mgid':
+        case 'mixadv':
         case 'adpartner':
         case 'googleAdsIns':
         case 'googleAdsTag':
+        case 'onlyScriptAds':
             if(!options.screenSizes || (document.documentElement.clientWidth >= options.screenSizes.min && document.documentElement.clientWidth <= options.screenSizes.max)) {
                 if (options.makeAds || (type='googleAdsTag')) {
                     if (divId) {
