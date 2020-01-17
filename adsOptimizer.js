@@ -82,10 +82,10 @@ function googleAdsInsConstruct(options) {
     script.defer = true;
     script.src =
       "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-    script.setAttribute(
-      "data-ad-client",
-      options.createElems[0].parametres["data-ad-client"]
-    );
+    // script.setAttribute(
+    //   "data-ad-client",
+    //   options.createElems[0].parametres["data-ad-client"]
+    // );
     script.id = "adsbygoogleOptim";
     head.appendChild(script);
     return false;
