@@ -134,9 +134,13 @@
         });
         /*googleTag ads*/
 
-        /*google ads ins float*/
-        createAds("googleAdsIns", "googleAdsInsFloat", {
+        /*google ads ins float desc*/
+        createAds("googleAdsIns", "googleAdsInsFloatDesc", {
           loadOnScroll: false,
+          screenSizes: {
+            min: 576,
+            max: 2000
+          },
           createElems: [
             {
               type: "div",
@@ -144,7 +148,7 @@
               parametres: {
                 id: "mainFloatDesctop",
                 style:
-                  "max-height:300px; z-undex:65000; position:fixed; width:100%; background-color:rgba(0,0,0,0.6); text-align:center; bottom:0px;"
+                  "max-height:300px; z-index:65000; position:fixed; width:100%; background-color:rgba(0,0,0,0.6); text-align:center; bottom:0px;"
               }
             },
             {
@@ -152,6 +156,7 @@
               type: "div",
               into: "mainFloatDesctop",
               parametres: {
+                onclick: "mainFloatDesctop.remove()",
                 style:
                   "position: relative;float: right;max-width: 100%;margin-top: -28px; width: 26px;height: 26px;cursor: pointer;color: rgb(255, 255, 255);z-index: 999;font-size: 18px;line-height: 25px;background-color: grey;border-radius: 13px;font-family: arial;text-align: center;"
               }
@@ -170,7 +175,50 @@
             }
           ]
         });
-        /*google ads ins float*/
+        /*google ads ins float desc*/
+
+        /*google ads ins float desc*/
+        createAds("googleAdsIns", "googleAdsInsFloatMob", {
+          loadOnScroll: false,
+          screenSizes: {
+            min: 0,
+            max: 575
+          },
+          createElems: [
+            {
+              type: "div",
+              into: "googleAdsInsFloat",
+              parametres: {
+                id: "mainFloatMobile",
+                style:
+                  "max-height:300px; z-index:65000; position:fixed; width:100%; background-color:rgba(0,0,0,0.6); text-align:center; bottom:0px;"
+              }
+            },
+            {
+              //close button
+              type: "div",
+              into: "mainFloatMobile",
+              parametres: {
+                onclick: "mainFloatMobile.remove()",
+                style:
+                  "position: relative;float: right;max-width: 100%;margin-top: -28px; width: 26px;height: 26px;cursor: pointer;color: rgb(255, 255, 255);z-index: 999;font-size: 18px;line-height: 25px;background-color: grey;border-radius: 13px;font-family: arial;text-align: center;"
+              }
+            },
+            {
+              type: "ins",
+              into: "mainFloatMobile",
+              parametres: {
+                class: "adsbygoogle",
+                style: "display:block",
+                "data-ad-client": "ca-pub-7062211877745429",
+                "data-ad-slot": "9507259471",
+                "data-ad-format": "auto",
+                "data-full-width-responsive": "true"
+              }
+            }
+          ]
+        });
+        /*google ads ins float desc*/
       });
     </script>
 
