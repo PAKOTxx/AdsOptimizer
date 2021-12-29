@@ -7,8 +7,14 @@ function addListener(type, options, divId) {
         pageTopOffset = options.pageTopOffset;
       }
       if (scrollY >= pageTopOffset) {
+        if (options.doBefore) {
+          options.doBefore();
+        }
         let finished = adsMaking(type, options, divId);
         if (finished) {
+          if (options.doAfter) {
+            options.doAfter();
+          }
           window.removeEventListener('scroll', divId);
         }
       }
@@ -32,16 +38,17 @@ function adsMaking(type, options, divId) {
     options.makeAds();
     finished = true;
   }
+
   if (options.googleAdsTag) {
     finished = googleAdsTagConstruct(options.googleAdsTag);
   }
   if (type === 'googleAdsIns') {
     finished = googleAdsInsConstruct(options);
   }
-  // let tElem = document.getElementById(options.createElems[0].into);
-  // if (tElem) {
-  //   tElem.id = str_rand(10);
-  // }
+  let tElem = document.getElementById(options.createElems[0].into);
+  if (tElem) {
+    tElem.id = str_rand(10);
+  }
   return finished;
 }
 
@@ -171,13 +178,13 @@ function createAds(type, divId, options) {
   }
 }
 
-// function str_rand(strCount) {
-//   var result = '';
-//   var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-//   var max_position = words.length - 1;
-//   for (i = 0; i < strCount; ++i) {
-//     position = Math.floor(Math.random() * max_position);
-//     result = result + words.substring(position, position + 1);
-//   }
-//   return result;
-// }
+function str_rand(strCount) {
+  var result = '';
+  var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+  var max_position = words.length - 1;
+  for (i = 0; i < strCount; ++i) {
+    position = Math.floor(Math.random() * max_position);
+    result = result + words.substring(position, position + 1);
+  }
+  return result;
+}
