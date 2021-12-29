@@ -1,11 +1,11 @@
 function addListener(type, options, divId) {
   window.addEventListener(
-    "scroll",
-    (divId = function() {
-      if (pageYOffset >= 1) {
+    'scroll',
+    (divId = function () {
+      if (scrollY >= 1) {
         let finished = adsMaking(type, options, divId);
         if (finished) {
-          window.removeEventListener("scroll", divId);
+          window.removeEventListener('scroll', divId);
         }
       }
     })
@@ -31,26 +31,26 @@ function adsMaking(type, options, divId) {
   if (options.googleAdsTag) {
     finished = googleAdsTagConstruct(options.googleAdsTag);
   }
-  if (type === "googleAdsIns") {
+  if (type === 'googleAdsIns') {
     finished = googleAdsInsConstruct(options);
   }
-  let tElem = document.getElementById(options.createElems[0].into);
-  if (tElem) {
-    tElem.id = str_rand(10);
-  }
+  // let tElem = document.getElementById(options.createElems[0].into);
+  // if (tElem) {
+  //   tElem.id = str_rand(10);
+  // }
   return finished;
 }
 
 function googleAdsTagConstruct(options) {
   if (window.googletag == undefined) {
-    if (!document.getElementById("adsTagOptim")) {
-      var head = document.getElementsByTagName("head")[0];
-      var script = document.createElement("script");
-      script.type = "text/javascript";
+    if (!document.getElementById('adsTagOptim')) {
+      var head = document.getElementsByTagName('head')[0];
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
       script.async = true;
       script.defer = true;
-      script.src = "https://www.googletagservices.com/tag/js/gpt.js";
-      script.id = "adsTagOptim";
+      script.src = 'https://www.googletagservices.com/tag/js/gpt.js';
+      script.id = 'adsTagOptim';
       head.appendChild(script);
     }
   } else if (window.googletag.defineSlot !== undefined) {
@@ -61,7 +61,7 @@ function googleAdsTagConstruct(options) {
     googletag.pubads().disableInitialLoad();
     googletag.pubads().collapseEmptyDivs();
     googletag.enableServices();
-    googletag.cmd.push(function() {
+    googletag.cmd.push(function () {
       googletag.display(options.opt_div);
       googletag.pubads().refresh([slot]);
     });
@@ -73,20 +73,20 @@ function googleAdsTagConstruct(options) {
 function googleAdsInsConstruct(options) {
   if (
     window.adsbygoogle == undefined &&
-    !document.getElementById("adsbygoogleOptim")
+    !document.getElementById('adsbygoogleOptim')
   ) {
-    var head = document.getElementsByTagName("head")[0];
-    var script = document.createElement("script");
-    script.type = "text/javascript";
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
     script.async = true;
     script.defer = true;
     script.src =
-      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+      'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
     // script.setAttribute(
     //   "data-ad-client",
     //   options.createElems[0].parametres["data-ad-client"]
     // );
-    script.id = "adsbygoogleOptim";
+    script.id = 'adsbygoogleOptim';
     head.appendChild(script);
     return false;
   } else {
@@ -97,7 +97,7 @@ function googleAdsInsConstruct(options) {
 
 function consoleLog(type, problem) {
   console.log(
-    "AdsOptimizer : Problem with type " + type + ". " + problem + " is wrong."
+    'AdsOptimizer : Problem with type ' + type + '. ' + problem + ' is wrong.'
   );
 }
 
@@ -119,12 +119,12 @@ function createElem(elem) {
 
 function createAds(type, divId, options) {
   switch (type) {
-    case "mgid":
-    case "mixadv":
-    case "adpartner":
-    case "googleAdsIns":
-    case "googleAdsTag":
-    case "onlyScriptAds":
+    case 'mgid':
+    case 'mixadv':
+    case 'adpartner':
+    case 'googleAdsIns':
+    case 'googleAdsTag':
+    case 'onlyScriptAds':
       if (
         !options.screenSizes ||
         (document.documentElement.clientWidth >= options.screenSizes.min &&
@@ -132,8 +132,8 @@ function createAds(type, divId, options) {
       ) {
         if (
           options.makeAds ||
-          type === "googleAdsTag" ||
-          type === "googleAdsIns"
+          type === 'googleAdsTag' ||
+          type === 'googleAdsIns'
         ) {
           if (divId) {
             if (options.loadOnScroll === false) {
@@ -142,25 +142,25 @@ function createAds(type, divId, options) {
               addListener(type, options, divId);
             }
           } else {
-            consoleLog(type, "divId");
+            consoleLog(type, 'divId');
           }
         } else {
-          consoleLog(type, "makeAds");
+          consoleLog(type, 'makeAds');
         }
       }
       break;
     default:
-      console.log("type is empty or wrong");
+      console.log('type is empty or wrong');
   }
 }
 
-function str_rand(strCount) {
-  var result = "";
-  var words = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-  var max_position = words.length - 1;
-  for (i = 0; i < strCount; ++i) {
-    position = Math.floor(Math.random() * max_position);
-    result = result + words.substring(position, position + 1);
-  }
-  return result;
-}
+// function str_rand(strCount) {
+//   var result = '';
+//   var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+//   var max_position = words.length - 1;
+//   for (i = 0; i < strCount; ++i) {
+//     position = Math.floor(Math.random() * max_position);
+//     result = result + words.substring(position, position + 1);
+//   }
+//   return result;
+// }
