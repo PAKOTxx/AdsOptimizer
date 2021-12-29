@@ -2,7 +2,11 @@ function addListener(type, options, divId) {
   window.addEventListener(
     'scroll',
     (divId = function () {
-      if (scrollY >= 1) {
+      let pageTopOffset = 1;
+      if (options.pageTopOffset) {
+        pageTopOffset = options.pageTopOffset;
+      }
+      if (scrollY >= pageTopOffset) {
         let finished = adsMaking(type, options, divId);
         if (finished) {
           window.removeEventListener('scroll', divId);
@@ -90,8 +94,12 @@ function googleAdsInsConstruct(options) {
     head.appendChild(script);
     return false;
   } else {
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    return true;
+    try {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      return true;
+    } catch (err) {
+      return true;
+    }
   }
 }
 
@@ -112,8 +120,16 @@ function createElem(elem) {
           element.setAttribute(key, value);
         }
       }
+      if (elem.innerHtmlVal) {
+        element.innerText = elem.innerHtmlVal;
+      }
+      if (elem.innerVal) {
+        element.innerHTML = elem.innerVal;
+      }
       into.append(element);
     }
+  } else {
+    //consoleLog("createElem", "into");
   }
 }
 
@@ -146,6 +162,7 @@ function createAds(type, divId, options) {
           }
         } else {
           consoleLog(type, 'makeAds');
+          console.log(divId);
         }
       }
       break;
